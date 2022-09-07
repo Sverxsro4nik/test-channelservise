@@ -1,5 +1,5 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createEntityAdapter, } from "@reduxjs/toolkit";
+// import axios from "axios"; createAsyncThunk
 
 const postsAdapter = createEntityAdapter();
 const initialState = postsAdapter.getInitialState({
