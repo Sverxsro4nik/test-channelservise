@@ -7,9 +7,8 @@ const useAuth = () => useContext(AuthContex);
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
-
   const [user, setUser] = useState(
-    userData ? userData.user : null,
+    userData || null,
   );
 
   const logIn = useCallback((newUser) => {
