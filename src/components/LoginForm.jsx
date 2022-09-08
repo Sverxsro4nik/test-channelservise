@@ -8,8 +8,10 @@ import Input from './LoginPageComponents/Input';
 import FormButton from './LoginPageComponents/FormButton';
 import getAdmin from '../data';
 import getRoutes from '../routes/routes';
+import { useAuth } from '../context/AuthProvider';
 
 const LoginForm = () => {
+  const { logIn } = useAuth();
   const navidate = useNavigate();
   const usernameRef = useRef(null);
   useEffect(() => {
@@ -31,6 +33,7 @@ const LoginForm = () => {
       const admin = getAdmin();
       const { username, password } = values;
       if (admin.username === username && admin.password === password) {
+        logIn(admin);
         navidate(getRoutes.loginPage);
       }
     },
