@@ -1,77 +1,17 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import styled from 'styled-components';
-
-const LoginWrapper = styled.div`
-  width: 480px;
-  height: 330px;
-  margin: 0 auto;
-  margin-top: 347px;
-  border: 5px solid hsl(216, 60%, 38%);
-  border-radius: 6px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 20px 25px;
-  font-size: 24px;
-  font-weight: 800;
-`
-const FormHeader = styled.h1`
-  color: hsl(216, 60%, 38%);
-  text-align: center;
-  font-size: 24px;
-  line-height: 29px;
-  margin-bottom: 25px;
-`
-
-const FormContainer = styled.form`
-  display: block;
-`
-
-const InputWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-`
-
-const Label = styled.label`
-  display: inline-block;
-  font-size: 24px;
-`
-
-const Input = styled.input`
-  display: inline-block;
-  border: 5px solid hsl(216, 60%, 38%);
-  border-radius: 6px;
-  width: 295px;
-  height: 45px;
-  &:focus {
-    outline: none;
-  }
-`
-
-const SendButton = styled.button`
-  background-color: hsl(36, 71%, 64%);
-  display: block;
-  outline: none;
-  border: none;
-  width: 213px;
-  height: 43px;
-  border-radius: 5px;
-  font-weight: 800px;
-  font-size: 24px;
-  margin: 0 auto;
-  cursor: pointer;
-  &:hover{
-    background-color: hsl(216, 60%, 38%);
-    color: #fff;
-  }
-`
+import InputContainer from './LoginPageComponents/InputContainer';
+import Label from './LoginPageComponents/Label';
+import Input from './LoginPageComponents/Input';
+import FormButton from './LoginPageComponents/FormButton';
+import getAdmin from '../data';
+import getRoutes from '../routes/routes';
 
 const LoginForm = () => {
+  const navidate = useNavigate();
   const usernameRef = useRef(null);
-
   useEffect(() => {
     usernameRef.current.focus();
   }, []);
@@ -87,21 +27,25 @@ const LoginForm = () => {
       password: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
-    }
+    onSubmit: (values) => {
+      const admin = getAdmin();
+      const { username, password } = values;
+      if (admin.username === username && admin.password === password) {
+        navidate(getRoutes.loginPage);
+      }
+    },
   });
 
-  const { handleChange, handleSubmit, handleBlur, values } = formik;
+  const {
+    handleChange, handleSubmit, handleBlur, values,
+  } = formik;
 
   return (
-    <LoginWrapper>
-      <FormHeader>Authorization</FormHeader>
-      <FormContainer onSubmit={handleSubmit}>
-        <InputWrapper>
+      <form onSubmit={handleSubmit}>
+        <InputContainer>
           <Label htmlFor='username'>login</Label>
           <Input type="text"
-            ref={usernameRef}
+            usernameRef={usernameRef}
             name='username'
             id='username'
             autoComplete='username'
@@ -109,8 +53,8 @@ const LoginForm = () => {
             value={values.username}
             onBlur={handleBlur}
           />
-        </InputWrapper>
-        <InputWrapper>
+        </InputContainer>
+        <InputContainer>
           <Label htmlFor='password'>password</Label>
           <Input type="text"
             name='password'
@@ -119,13 +63,12 @@ const LoginForm = () => {
             value={values.password}
             onBlur={handleBlur}
           />
-        </InputWrapper>
-        <SendButton type='submit' onSubmit={handleSubmit}>
+        </InputContainer>
+        <FormButton>
           Submit
-        </SendButton>
-      </FormContainer>
-    </LoginWrapper>
-  )
-}
+        </FormButton>
+      </form>
+  );
+};
 
 export default LoginForm;

@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 // import axios from "axios"; createAsyncThunk
 
 const postsAdapter = createEntityAdapter();
