@@ -3,10 +3,10 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 import getRoutes from '../routes/routes';
 
-const fetchUsers = createAsyncThunk(
+export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
-  async (payload) => {
-    const { data } = await axios.get(getRoutes.usersPath(payload));
+  async () => {
+    const { data } = await axios.get(getRoutes.usersPath());
     return data;
   },
 );
@@ -37,6 +37,8 @@ const usersSlice = createSlice({
 });
 
 export const selectors = usersAdapter.getSelectors((state) => state.users);
+
+export const getUsers = (state) => selectors.selectAll(state);
 
 export const getDefaultUserId = (state) => state.users.defaultUserId;
 

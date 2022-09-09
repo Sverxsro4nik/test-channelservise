@@ -1,9 +1,9 @@
 const apiPath = 'https://jsonplaceholder.typicode.com';
 
 const getRoutes = {
-  postsPath: () => [apiPath, 'posts'].join('/'),
-  usersPath: (id) => [apiPath, `?userId=${id}`].join('/'),
-  imagesPath: (id) => [apiPath, `users?userId=${id}`].join('/'),
+  postsPath: (id) => [apiPath, 'users', id, 'posts'].join('/'),
+  usersPath: () => [apiPath, 'users'].join('/'),
+  imagesPath: (id) => [apiPath, 'users', id, 'albums'].join('/'),
   postsPage: () => '/',
   loginPage: () => '/login',
 };

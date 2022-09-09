@@ -1,7 +1,8 @@
-import axios from 'axios';
+/* eslint-disable arrow-body-style */
+// import axios from 'axios';
 import React from 'react';
 import styled from 'styled-components';
-import getRoutes from '../../routes/routes';
+// import getRoutes from '../../routes/routes';
 
 const PostContainer = styled.div`
   border: 5px solid #27569C;
@@ -11,16 +12,17 @@ const PostContainer = styled.div`
   height: auto;
 `;
 
-const Post = async (props) => {
+const Post = ({ post, activeUser }) => {
   const {
-    userId, id, body, title,
-  } = props.post;
-  const { data } = await axios.get(getRoutes.usersPath(userId));
-  console.log(data);
+    body, title,
+  } = post;
+  const {
+    name, company,
+  } = activeUser;
   return (
     <PostContainer>
-      <p>{userId}</p>
-      <p>{id}</p>
+      <p>{name}</p>
+      <p>{company.name}</p>
       <p>{body}</p>
       <p>{title}</p>
     </PostContainer>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchPosts, getPosts } from '../slices/postsSlice';
 import Post from '../components/PostsComponents/Post';
-// import { getDefaultUserId } from '../slices/usersSlice';
+import { getDefaultUserId, getUsers, fetchUsers } from '../slices/usersSlice';
 
 const PostsContainer = styled.div`
   display: flex;
@@ -13,13 +13,20 @@ const PostsContainer = styled.div`
 const PostsPage = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector(getPosts);
+  const allUsers = useSelector(getUsers);
+  const defaultUserId = useSelector(getDefaultUserId);
+  const [activeUser] = allUsers.filter((user) => user.id === defaultUserId);
+  console.log(activeUser);
+  console.log(allPosts);
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(fetchUsers());
+    dispatch(fetchPosts(defaultUserId));
   }, [dispatch]);
   return (
     <PostsContainer>
       {
-        allPosts.map((post) => <Post key={post.id} post={post}/>)
+        allPosts ? allPosts.map((post) => <Post
+          key={post.id} post={post} activeUser={activeUser} />) : null
       }
     </PostsContainer>
   );

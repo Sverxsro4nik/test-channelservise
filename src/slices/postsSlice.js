@@ -2,12 +2,12 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import getRoutes from '../routes/routes';
+// import { fetchUsers } from './usersSlice';
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
-  async () => {
-    const { data } = await axios.get(getRoutes.dataPath());
-    console.log(data);
+  async (payload) => {
+    const { data } = await axios.get(getRoutes.postsPath(payload));
     return data;
   },
 );
@@ -25,13 +25,13 @@ const postsReducer = createSlice({
     builder.addCase(fetchPosts.pending, (state) => {
       state.isLoading = true;
       state.loadingError = null;
-    }).addCase(fetchPosts.fulfilled, (state, { payload }) => {
-      postsAdapter.setAll(state, payload);
-      state.isLoading = false;
-      state.loadingError = null;
     }).addCase(fetchPosts.rejected, (state, action) => {
       state.isLoading = false;
       state.loadingError = action.error;
+    }).addCase(fetchPosts.fulfilled, (state, payload) => {
+      postsAdapter.setAll(state, payload);
+      state.isLoading = false;
+      state.loadingError = null;
     });
   },
 });
