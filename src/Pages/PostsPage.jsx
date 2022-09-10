@@ -1,15 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import getRoutes from '../routes/routes';
-// import { getPosts } from '../slices/postsSlice';
-// import Post from '../components/PostsComponents/Post';
+import { imageAPI } from '../servise/ImagesServise';
+import { getImages, setImages } from '../slices/imagesSlice';
+import { fetchPosts, getPosts } from '../slices/postsSlice';
 import { getUsers, fetchUsers } from '../slices/usersSlice';
-// import { fetchImages } from '../slices/imagesSlice';
-// import { postAPI } from '../servise/PostServise';
-// getImages, fetchPosts
+
 const PostsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -20,23 +20,23 @@ const PostsContainer = styled.div`
   row-gap: 20px;
 `;
 
-const getData = (users) => {
-  const result = users.map((user) => {
-    const res1 = axios.get(getRoutes.postsPath(user.id))
-      .then((response) => response.data);
-    return res1.then((response) => console.log(response));
-  });
-  return result;
-};
-
 const PostsPage = () => {
   const dispatch = useDispatch();
+  const allPosts = useSelector(getPosts);
   const allUsers = useSelector(getUsers);
-  const res = getData(allUsers);
-  console.log(res);
+  const allImages = useSelector(getImages);
+  const usersId = allUsers.map((user) => user.id);
+  const needPosts = usersId.map((id) => {
+    const userPost = allPosts.filter((post) => post.userId === id);
+    return { post: userPost[0] };
+  });
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [dispatch, fetchUsers]);
+    dispatch(fetchPosts());
+    Promise.all(usersId.map((id) => axios
+      .get(getRoutes.imagesPath(id)).then((response) => response.data[0])))
+      .then((images) => dispatch(setImages(images)));
+  }, [usersId, allImages]);
   return (
     <PostsContainer>
     </PostsContainer>

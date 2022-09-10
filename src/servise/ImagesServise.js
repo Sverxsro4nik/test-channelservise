@@ -7,10 +7,7 @@ export const imageAPI = createApi({
   endpoints: (build) => ({
     fetchSomeImage: build.query({
       query: (id) => ({
-        url: `albums/${id}/photos'`,
-        params: {
-          _limit: 1,
-        },
+        url: `albums/${id}/photos`,
       }),
     }),
   }),

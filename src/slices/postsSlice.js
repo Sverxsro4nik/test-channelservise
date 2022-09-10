@@ -5,8 +5,8 @@ import getRoutes from '../routes/routes';
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
-  async (payload) => {
-    const { data } = await axios.get(getRoutes.postsPath(payload));
+  async () => {
+    const { data } = await axios.get(getRoutes.postsPath());
     return data;
   },
 );
