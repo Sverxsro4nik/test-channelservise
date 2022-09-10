@@ -2,7 +2,6 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import getRoutes from '../routes/routes';
-// import { fetchUsers } from './usersSlice';
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
