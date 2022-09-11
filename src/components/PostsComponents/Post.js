@@ -26,24 +26,21 @@ const PostTitle = styled.p`
   margin-bottom: 24px;
 `;
 
-const Post = ({ post, activeUser, src }) => {
+const Post = ({ post }) => {
   const {
-    body, title,
+    post: actualPost, name, companyName, image,
   } = post;
-  const {
-    name, company,
-  } = activeUser;
   return (
     <PostContainer>
       <AboutPostContainer>
-        <Image src={src.url} alt={src.title}/>
+        <Image src={image.url} alt={image.title}/>
         <div>
           <p>Author: {name}</p>
-          <p> Company: {company.name}</p>
+          <p> Company: {companyName}</p>
         </div>
       </AboutPostContainer>
-      <PostTitle>Title: {title}</PostTitle>
-      <p>{body}</p>
+      <PostTitle>Title: {actualPost.title}</PostTitle>
+      <p>{actualPost.body}</p>
     </PostContainer>
   );
 };
