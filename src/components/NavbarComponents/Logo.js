@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logoImage from '../assets/logo 2.svg';
+import logoImage from '../../assets/logo 2.svg';
 
 const LogoWrapper = styled.div`
   width: 273px;

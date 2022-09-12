@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAuth } from '../context/AuthProvider';
-import logOutImage from '../assets/logOut.svg';
+import { useAuth } from '../../context/AuthProvider';
 import Logo from './Logo';
+import LogOut from './LogOut';
 
 const NavWrapper = styled.nav`
   display: flex;
@@ -16,16 +16,6 @@ const CabinetWrapper = styled.div`
   align-items: center;
 `;
 
-const LogOutButton = styled.button`
-  width: 62px;
-  height: 56px;
-  background-image: url(${logOutImage});
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-`;
-
 const UsernameContainer = styled.div`
   font-size: 24px;
   text-align: center;
@@ -37,13 +27,13 @@ const UsernameContainer = styled.div`
 `;
 
 const Nav = () => {
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
   return (
     <NavWrapper>
       <Logo />
       {user ? (<CabinetWrapper>
         <UsernameContainer>{user.username}</UsernameContainer>
-        <LogOutButton onClick={logOut}/>
+        <LogOut />
       </CabinetWrapper>) : null
       }
     </NavWrapper>

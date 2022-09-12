@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import LoginPage from './Pages/LoginPage.jsx';
 import PostsPage from './Pages/PostsPage.jsx';
-import Nav from './components/Nav.jsx';
+import Nav from './components/NavbarComponents/Nav.jsx';
 import { useAuth } from './context/AuthProvider';
 import getRoutes from './routes/routes';
 
