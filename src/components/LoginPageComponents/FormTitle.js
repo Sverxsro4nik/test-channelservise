@@ -6,7 +6,8 @@ const FormHeader = styled.h1`
   text-align: center;
   font-size: 24px;
   line-height: 29px;
-  margin-bottom: 25px;
+  margin-bottom: 45px;
+  padding-top: 2px;
 `;
 
 const FormTitle = ({ children }) => (

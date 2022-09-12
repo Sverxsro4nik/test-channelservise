@@ -1,18 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImage from '../assets/logo 2.svg';
 import { useAuth } from '../context/AuthProvider';
 import logOutImage from '../assets/logOut.svg';
+import Logo from './Logo';
 
 const NavWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
   background-color: hsl(36, 71%, 64%);
   padding: 27px 41px;
-`;
-const LogoWrapper = styled.div`
-  width: 273px;
-  height: auto;
 `;
 
 const CabinetWrapper = styled.div`
@@ -29,6 +25,7 @@ const LogOutButton = styled.button`
   outline: none;
   cursor: pointer;
 `;
+
 const UsernameContainer = styled.div`
   font-size: 24px;
   text-align: center;
@@ -43,9 +40,7 @@ const Nav = () => {
   const { user, logOut } = useAuth();
   return (
     <NavWrapper>
-      <LogoWrapper>
-        <img src={logoImage} alt="logo" />
-      </LogoWrapper>
+      <Logo />
       {user ? (<CabinetWrapper>
         <UsernameContainer>{user.username}</UsernameContainer>
         <LogOutButton onClick={logOut}/>

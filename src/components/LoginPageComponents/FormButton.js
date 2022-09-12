@@ -13,6 +13,8 @@ const SendButton = styled.button`
   font-size: 24px;
   margin: 0 auto;
   cursor: pointer;
+  letter-spacing: 1px;
+  padding-top: 2px;
   &:hover{
     background-color: hsl(216, 60%, 38%);
     color: #fff;

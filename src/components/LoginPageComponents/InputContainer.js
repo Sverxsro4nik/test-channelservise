@@ -7,6 +7,7 @@ const InputWrapper = styled.div`
   align-items: center;
   margin-bottom: 25px;
   flex-wrap: wrap;
+  padding-right: 2px;
 `;
 
 const InputContainer = ({ children }) => (
