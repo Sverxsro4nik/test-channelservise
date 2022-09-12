@@ -24,7 +24,7 @@ const PostsPage = () => {
   const usersId = allUsers.map((user) => user.id);
   const allPosts = useSelector(getPosts);
   const allImages = useSelector(getImages);
-  const needData = usersId.map((id) => {
+  const groupedData = usersId.map((id) => {
     const [user] = allUsers.filter((actualUser) => actualUser.id === id);
     const userPost = allPosts.filter((post) => post.userId === id);
     const [image] = allImages.filter((img) => img.albumId === id);
@@ -34,21 +34,23 @@ const PostsPage = () => {
     };
   });
   useEffect(() => {
-    const res = axios.get(getRoutes.usersPath()).then((response) => response.data)
+    const getAllData = axios.get(getRoutes.usersPath()).then((response) => response.data)
       .then((users) => {
-        dispatch(addUsers(users));
         dispatch(fetchPosts());
         const usersIds = users.map((user) => user.id);
         Promise.all(usersIds.map((id) => axios.get(getRoutes.imagesPath(id))
-          .then((req) => req.data[0])))
-          .then((images) => dispatch(addImages(images)));
+          .then((imagesResponse) => imagesResponse.data[0])))
+          .then((images) => {
+            dispatch(addImages(images));
+            dispatch(addUsers(users));
+          });
       });
-    res.then();
+    getAllData.then();
   }, [dispatch]);
   return (
     <PostsContainer>
       {
-        needData.length === 0 ? 'Loading ...' : needData.map((post) => <Post key={post.name} post={post} />)
+        groupedData.length === 0 ? 'Loading ...' : groupedData.map((post) => <Post key={post.name} post={post} />)
       }
     </PostsContainer>
   );
